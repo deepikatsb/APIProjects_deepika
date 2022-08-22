@@ -2,17 +2,12 @@ package testCases;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import io.restassured.path.json.JsonPath;
-import io.restassured.path.json.config.JsonPathConfig;
 import io.restassured.response.Response;
-
 import static io.restassured.RestAssured.*;
-
 import java.util.concurrent.TimeUnit;
 
 public class ReadAllProducts {
-
 	@Test
 	public void readAllProducts() {
 		/*
@@ -20,6 +15,14 @@ public class ReadAllProducts {
 		 when : Submit api requests(HTTP method, ENdpoint/Resource)
 		 Then: validate response(status code,Headers, responseTime, Payload/Body)
 		 https://techfios.com/api-prod/api/product /read.php
+		 	01. ReadAllProducts
+			HTTP Method : GET
+			EndpointURL = https://techfios.com/api-prod/api/product/read.php
+			Headers:
+			Content-Type = application/json; charset=UTF-8
+			Authorization:
+			Basic auth = username,password
+			Status Code:200
 		 */
 		Response response = 
 		
@@ -50,15 +53,12 @@ public class ReadAllProducts {
 		
 		String responseBody = response.getBody().asString();
 		JsonPath jsonPath = new JsonPath(responseBody);
-		String firstProductID = jsonPath.getString("records[0].id");
+		String firstProductID = jsonPath.get("records[0].id");
 		System.out.println("firstProductID : " + firstProductID);
 		if(firstProductID!=null) {
 			System.out.println("Records are not NULL");
 		}else {
 			System.out.println("Records are null");
 		}
-				
-		
 	}
-	
 }
