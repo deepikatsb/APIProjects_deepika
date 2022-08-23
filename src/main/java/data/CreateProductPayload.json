@@ -1,7 +1,8 @@
 {
-						    "name" : "Amazing",
+
+						    "name" : "Alan Walker Album",
 						    "price" : "199",
-						    "description" : "The best pillow for amazing programmers.",
-						    "category_id" : 2,
+						    "description" : "The best Songs for amazing programmers.",
+						    "category_id" : 5,
 							"category_name": "Electronics"
 						}

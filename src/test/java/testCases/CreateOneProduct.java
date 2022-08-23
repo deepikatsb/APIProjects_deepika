@@ -2,6 +2,7 @@ package testCases;
 
 import static io.restassured.RestAssured.given;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -50,8 +51,8 @@ public void createOneProduct() {
 	given()
 			.baseUri(baseuri)
 			.header("Content-Type","application/json; charset=UTF-8")
-			
-			.body(getCreatePayloadMethod()).
+			.body(new File("src\\main\\java\\data\\CreateProductPayload.json")).
+	//		.body(getCreatePayloadMethod()).
 	when()
 			.post(endPointURI).
 	then()
