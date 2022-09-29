@@ -32,12 +32,12 @@ public class ReadAllProducts {
 				.auth().preemptive().basic("demo@techfios.com", "abc123").
 		when()
 				.get("/read.php").
-		then()
+		then()				
 				.extract().response();
 		
 		int statusCode = response.getStatusCode();
 		System.out.println("Status code is " +statusCode);
-		Assert.assertEquals(statusCode, 200);
+		Assert.assertEquals(statusCode, 400);
 		
 		long responseTime = response.getTimeIn(TimeUnit.MILLISECONDS);
 		System.out.println("Response Time : " + responseTime);

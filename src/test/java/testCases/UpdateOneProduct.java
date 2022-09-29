@@ -3,6 +3,7 @@ package testCases;
 import static io.restassured.RestAssured.given;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -62,15 +63,8 @@ public class UpdateOneProduct {
 	@Test(priority = 1)
 	public void createOneProduct() {
 
-		Response response = 
-				given()
-						.baseUri(baseuri)
-						.header("Content-Type", "application/json; charset=UTF-8")
-						.body(getCreatePayloadMethod()).
-				when()
-						.post(endPointURICreate).
-				then()
-						.extract().response();
+		Response response = given().baseUri(baseuri).header("Content-Type", "application/json; charset=UTF-8")
+				.body(getCreatePayloadMethod()).when().post(endPointURICreate).then().extract().response();
 
 		int statusCode = response.getStatusCode();
 		softAssert.assertEquals(statusCode, 201, "Status Code not Matching");
@@ -93,13 +87,8 @@ public class UpdateOneProduct {
 
 		Response response =
 
-				given()
-						.baseUri("https://techfios.com/api-prod/api/product")
-						.header("Content-Type", "application/json")
-						.auth().preemptive().basic("demo@techfios.com", "abc123").
-				when()
-						.get("/read.php").
-				then()
+				given().baseUri("https://techfios.com/api-prod/api/product").header("Content-Type", "application/json")
+						.auth().preemptive().basic("demo@techfios.com", "abc123").when().get("/read.php").then()
 						.extract().response();
 
 		String responseBody = response.getBody().asString();
@@ -109,15 +98,8 @@ public class UpdateOneProduct {
 
 	@Test(priority = 3)
 	public void updateOneProduct() {
-		Response response = 
-				given()
-						.baseUri(baseuri)
-						.header("Content-Type", "application/json; charset=UTF-8")
-						.body(updatePayloadMethod()).
-				when()
-						.put(endPointURIUpdate).
-				then()
-						.extract().response();
+		Response response = given().baseUri(baseuri).header("Content-Type", "application/json; charset=UTF-8")
+				.body(updatePayloadMethod()).when().put(endPointURIUpdate).then().extract().response();
 
 		int actualStatusCode = response.getStatusCode();
 		softAssert.assertEquals(actualStatusCode, 200, " Update Status code misMatch !");
@@ -134,15 +116,9 @@ public class UpdateOneProduct {
 	public void validateIfUpdated() {
 		Response response =
 
-				given()
-						.baseUri(baseuri)
-						.header("Content-Type", "application/json")
-						.header("Authorization", "Beader kslmdfmskldfmsdn")
-						.queryParam("id", firstProductID).
-				when()
-						.get("/read_one.php").
-				then()
-						.extract().response();
+				given().baseUri(baseuri).header("Content-Type", "application/json")
+						.header("Authorization", "Beader kslmdfmskldfmsdn").queryParam("id", firstProductID).when()
+						.get("/read_one.php").then().extract().response();
 
 		String responseBody = response.getBody().asString();
 		JsonPath jsonPath = new JsonPath(responseBody);
